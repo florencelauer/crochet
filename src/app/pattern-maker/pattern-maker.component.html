@@ -1,25 +1,59 @@
-<mat-form-field appearance="fill">
-    <mat-label>Number of Colors</mat-label>
-    <input matInput [(ngModel)]="colorNumber" type="number">
-</mat-form-field>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" opened class="sidenav"
+               [fixedInViewport]="false">
+    <mat-form-field appearance="fill">
+        <mat-label>Number of Colors</mat-label>
+        <input matInput [(ngModel)]="colorNumber" type="number" (change)="pickColors()">
+    </mat-form-field>
 
-<div *ngFor="let color of colors">
+    <mat-radio-group aria-label="Select an option" class="color-radio" [(ngModel)]="autoColors" (change)="pickColors()">
+      <mat-radio-button value=0 checked>Pick the colors for me!</mat-radio-button>
+      <mat-radio-button value=1>I will choose my colors.</mat-radio-button>
+    </mat-radio-group>   
 
-</div>
+    <div *ngIf="showColorPicker">
+      <form class="color-selection">
+        <div *ngFor="let color of colors; let i = index; trackBy:trackByFn"> {{i+1}}
+            <mat-slider class="r-slider" max=255 min=0 step=1 [(ngModel)]="colors[i][0]" name="{{i}}{{0}}">
+              <input matSliderThumb [(ngModel)]="colors[i][0]" name="{{i}}{{0}}">
+            </mat-slider>
+            <mat-slider class="g-slider" max=255 min=0 step=1 [(ngModel)]="colors[i][1]" name="{{i}}{{1}}">
+              <input matSliderThumb [(ngModel)]="colors[i][1]" name="{{i}}{{1}}">
+            </mat-slider>
+            <mat-slider class="b-slider" max=255 min=0 step=1 [(ngModel)]="colors[i][2]" name="{{i}}{{2}}">
+              <input matSliderThumb [(ngModel)]="colors[i][2]" name="{{i}}{{2}}">
+            </mat-slider>
+        </div>
+      </form>
+    </div>
+    
+    <input type="file" class="file-input"
+            [accept]="requiredFileType"
+            (change)="onFileSelected($event)" #fileUpload>
+    
+    <div class="file-upload">
+        {{fileName || "No file uploaded yet."}}
+  
+        <button mat-mini-fab color="primary" class="upload-btn"
+          (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+    </div>
 
-<input type="file" class="file-input"
-       [accept]="requiredFileType"
-       (change)="onFileSelected($event)" #fileUpload>
-
-<div class="file-upload">
-
-   {{fileName || "No file uploaded yet."}}
-
-    <button mat-mini-fab color="primary" class="upload-btn"
-      (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
+    <button mat-flat-button color="primary" class="upload-btn"
+      [disabled]="!image"
+      (click)="execute()">
+      Exexute
     </button>
-</div>
+  </mat-sidenav>
 
-<canvas id="canvas" #baseCanvas [attr.width]="2000" [attr.height]="2000"></canvas>
+  <mat-sidenav-content>
+    <canvas id="canvas" #baseCanvas [attr.width]="2000" [attr.height]="2000"></canvas>
+    <canvas id="invisible-canvas" #invCanvas class="invisible-canvas" [attr.width]="2000" [attr.height]="2000"></canvas>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
 

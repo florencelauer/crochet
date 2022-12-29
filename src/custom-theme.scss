@@ -9,14 +9,70 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+// /* SCSS HEX */
+// $metallic-seaweed: #057885ff;
+// $eerie-black: #242423ff;
+// $jet: #353533ff;
+// $eggshell: #f2ead9ff;
+// $floral-white: #fffbf0ff;
+
+// /* SCSS HSL */
+// $metallic-seaweed: hsla(186, 93%, 27%, 1);
+// $eerie-black: hsla(60, 1%, 14%, 1);
+// $jet: hsla(60, 2%, 20%, 1);
+// $eggshell: hsla(41, 49%, 90%, 1);
+// $floral-white: hsla(44, 100%, 97%, 1);
+
+// /* SCSS RGB */
+// $metallic-seaweed: rgba(5, 120, 133, 1);
+// $eerie-black: rgba(36, 36, 35, 1);
+// $jet: rgba(53, 53, 51, 1);
+// $eggshell: rgba(242, 234, 217, 1);
+// $floral-white: rgba(255, 251, 240, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+$gradient-right: linear-gradient(90deg, #057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+$gradient-bottom: linear-gradient(180deg, #057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+$gradient-left: linear-gradient(270deg, #057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+$gradient-top-right: linear-gradient(45deg, #057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+$gradient-bottom-right: linear-gradient(135deg, #057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+$gradient-top-left: linear-gradient(225deg, #057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+$gradient-bottom-left: linear-gradient(315deg, #057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+$gradient-radial: radial-gradient(#057885ff, #242423ff, #353533ff, #f2ead9ff, #fffbf0ff);
+
+$light-palette: (
+  50: #fffbf0ff,
+  100: #f2ead9ff,
+  500: #fffbf0ff,
+  700: #fffbf0ff,
+  contrast: (
+    50: #353533ff,
+    100: #242423ff,
+    200: #057885ff
+  )
+);
+
+$dark-palette: (
+  50: #353533ff,
+  100: #242423ff,
+  200: #057885ff,
+  500: #353533ff,
+  700: #353533ff,
+  contrast: (
+    50: #fffbf0ff,
+    100: #f2ead9ff,
+  )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$crochet-primary: mat.define-palette(mat.$indigo-palette);
-$crochet-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$crochet-primary: mat.define-palette($light-palette);
+$crochet-accent: mat.define-palette($dark-palette);
 
 // The warn palette is optional (defaults to red).
-$crochet-warn: mat.define-palette(mat.$red-palette);
+$crochet-warn: mat.define-palette($dark-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".

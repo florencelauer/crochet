@@ -29,6 +29,12 @@ export class ColorProcessorService {
     return pixels;
   }
 
+  getImageColors(uniqueColors: Array<Array<number>>, colorNumber: number): Centroids {
+    const output: KMeans = kmeans(uniqueColors, colorNumber, "kmeans");
+    output.centroids = output.centroids.map((value) => value.map((value) => Math.round(value)));
+    return output.centroids;
+  }
+
   getClosestColor(image: ImageData, colorNumber: number, centroids: Centroids) : Uint8ClampedArray {
     var newImage : Uint8ClampedArray = new Uint8ClampedArray(image.data);
     for(var height = 0; height < image.height; height++) {
@@ -41,7 +47,7 @@ export class ColorProcessorService {
         const g = newImage[image.height*height*4 + width*4 + 1];
         const b = newImage[image.height*height*4 + width*4 + 2];
 
-        var min = 255;
+        var min = 255*3;
         for(var i = 0; i < colorNumber; i++) {
           const dist = Math.sqrt((r - centroids[i][0])**2 + (g - centroids[i][1])**2 + (b - centroids[i][2])**2);
           if(dist < min) {
@@ -57,9 +63,13 @@ export class ColorProcessorService {
     return newImage;
   }
 
-  processImage(image: ImageData, colorNumber: number) : Uint8ClampedArray {
-    var uniqueColors: Array<Array<number>> = this.getUniqueColors(image);
-    const output: KMeans = kmeans(uniqueColors, colorNumber, "kmeans");
-    return this.getClosestColor(image, colorNumber, output.centroids);
+  processImage(image: ImageData, colorNumber: number, colors?: Array<Array<number>>) : Uint8ClampedArray {
+    console.log(colors);
+    if(!colors) {
+      var uniqueColors: Array<Array<number>> = this.getUniqueColors(image);
+      const output: KMeans = kmeans(uniqueColors, colorNumber, "kmeans");
+      colors = output.centroids;
+    }
+    return this.getClosestColor(image, colorNumber, colors);
   }
 }
