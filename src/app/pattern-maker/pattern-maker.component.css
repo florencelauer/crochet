@@ -1,13 +1,54 @@
+.sidenav {
+    width: 320px;
+}
+
+.color-number {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 120px;
+    text-align: center;
+}
 
 .color-radio {
     display: flex;
     flex-direction: column;
-    margin: 15px 0;
     align-items: flex-start;
+    margin-left: 65px;
+    margin-right: 65px;
+    margin-bottom: 20px;
+}
+
+.color-canvas {
+    margin-bottom: -3px;
+}
+
+.color-selection {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.slider {
+    width: 60px;
+    text-align: center;
 }
 
 .file-input {
     display: none;
+}
+
+.file-upload {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.execute-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .invisible-canvas {

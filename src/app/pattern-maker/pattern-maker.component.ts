@@ -6,7 +6,7 @@ import { ColorProcessorService } from '../color-processor.service';
   templateUrl: './pattern-maker.component.html',
   styleUrls: ['./pattern-maker.component.css']
 })
-export class PatternMakerComponent {
+export class PatternMakerComponent {  
   requiredFileType: string[] = ["image/png", "image/jpg", "image/jpeg"];
   showColorPicker: boolean = false;
 
@@ -68,5 +68,18 @@ export class PatternMakerComponent {
 
   trackByFn(index: any, item: any) {
     return index;
- }
+  }
+
+  draw() {
+    for(var i = 0; i < this.colorNumber; i++) {
+      var canvas: any = document.getElementById('canvas' + i);
+      var context: CanvasRenderingContext2D = canvas.getContext('2d');
+      var width = canvas.width;
+      var height = canvas.height;
+
+      context.clearRect(0, 0, width, height);
+      context.fillStyle = "rgba(" + this.colors[i][0] + "," + this.colors[i][1] + "," + this.colors[i][2] + ", 1)";
+      context.fillRect(0, 0, width, height);
+    }
+  }
 }
