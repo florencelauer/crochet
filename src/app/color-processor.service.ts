@@ -64,7 +64,6 @@ export class ColorProcessorService {
   }
 
   processImage(image: ImageData, colorNumber: number, colors?: Array<Array<number>>) : Uint8ClampedArray {
-    console.log(colors);
     if(!colors) {
       var uniqueColors: Array<Array<number>> = this.getUniqueColors(image);
       const output: KMeans = kmeans(uniqueColors, colorNumber, "kmeans");

@@ -5,29 +5,26 @@
         <input matInput [(ngModel)]="colorNumber" type="number" (change)="pickColors()">
     </mat-form-field>
 
+    <div class="dimensions">
+      <mat-form-field class="dim-input" >
+        <mat-label>Pattern width</mat-label>
+        <input matInput [(ngModel)]="imgWidth" type="number">
+      </mat-form-field>
+      <mat-form-field class="dim-input">
+        <mat-label>Pattern height</mat-label>
+        <input matInput [(ngModel)]="imgHeight" type="number">
+      </mat-form-field>
+    </div>
+
     <mat-radio-group color="accent" class="color-radio" [(ngModel)]="autoColors" (change)="pickColors()">
       <mat-radio-button value=0 checked>Pick the colors for me!</mat-radio-button>
       <mat-radio-button value=1>I will choose my colors.</mat-radio-button>
     </mat-radio-group>   
 
-    <div *ngIf="showColorPicker" class="color-selection">
-      <form>
-        <div *ngFor="let color of colors; let i = index; trackBy:trackByFn"> 
-          <canvas id="canvas{{i}}" class="color-canvas" width="20" height="20"></canvas>
-          <mat-form-field class="slider" color="accent">
-            <mat-label>R</mat-label>
-            <input matInput [(ngModel)]="colors[i][0]" name="{{i}}{{0}}" type="number" min=0 max=255 (ngModelChange)="draw()">
-          </mat-form-field>
-          <mat-form-field class="slider" color="accent">
-            <mat-label>G</mat-label>
-            <input matInput [(ngModel)]="colors[i][1]" name="{{i}}{{1}}" type="number" min=0 max=255 (ngModelChange)="draw()">
-          </mat-form-field>
-          <mat-form-field class="slider" color="accent">
-            <mat-label>B</mat-label>
-            <input matInput [(ngModel)]="colors[i][2]" name="{{i}}{{2}}" type="number" min=0 max=255 (ngModelChange)="draw()">
-          </mat-form-field>
-        </div>
-      </form>
+    <div [hidden]="!showColorPicker" class="color-selection">
+      <div *ngFor="let color of colors; let i = index; trackBy:trackByFn"> 
+        <div style="width:20px;height:20px;" id="colorSample{{i}}" (click)="openDialog(i)"></div>
+      </div>
     </div>
     
     <input type="file" class="file-input"
@@ -35,14 +32,14 @@
             (change)="onFileSelected($event)" #fileUpload>
     
     <div class="file-upload">
-      <button mat-raised-button color="primary" class="upload-btn"
+      <button mat-fab extended color="primary" class="upload-btn"
       (click)="fileUpload.click()">
         <mat-icon>attach_file</mat-icon>
         {{fileName || "No file uploaded yet."}}
       </button>
     </div>
 
-    <button mat-flat-button color="primary" class="execute-btn"
+    <button mat-fab extended color="primary" class="execute-btn"
       [disabled]="!image"
       (click)="execute()">
       Exexute
@@ -50,8 +47,12 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <canvas id="canvas" #baseCanvas [attr.width]="2000" [attr.height]="2000"></canvas>
-    <canvas id="invisible-canvas" #invCanvas class="invisible-canvas" [attr.width]="2000" [attr.height]="2000"></canvas>
+    <div id="canvas-container">
+      <canvas id="canvas" #baseCanvas [attr.width]="768" [attr.height]="768"></canvas>
+      <canvas id="invisible-canvas" #invCanvas class="invisible-canvas" [attr.width]="768" [attr.height]="768"></canvas>
+      <canvas id="grid-canvas" #gridCanvas [attr.width]="768" [attr.height]="768"></canvas>
+    </div>
+    
   </mat-sidenav-content>
 </mat-sidenav-container>
 

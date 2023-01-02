@@ -1,3 +1,4 @@
+
 .sidenav {
     width: 320px;
 }
@@ -9,6 +10,20 @@
     margin-top: 10px;
     width: 120px;
     text-align: center;
+}
+
+.dimensions {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.dim-input {
+    width: 100px;
+    text-align: center;
+    padding: 2px;
 }
 
 .color-radio {
@@ -25,7 +40,6 @@
 }
 
 .color-selection {
-    display: block;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -51,6 +65,26 @@
     margin-right: auto;
 }
 
-.invisible-canvas {
+#canvas-container {
+    height: 1004px;
+    width: 1600;
+}
+
+#canvas {
+    z-index: 1;
+    background-color: white;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#invisible-canvas {
     display: none;
+}
+
+#grid-canvas {
+    z-index: 2;
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
