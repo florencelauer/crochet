@@ -1,18 +1,16 @@
 <div class="color-wrapper">
-    <app-color-palette [hue]="hue" (color)="color = $event"></app-color-palette>
-    <app-color-slider
-      (color)="hue=$event"
-      style="margin-left:16px"
+    <app-color-palette></app-color-palette>
+    <app-color-slider style="margin-left:16px"
     ></app-color-slider>
   </div>
   <div class="input-wrapper">
-    <span class="text">{{color}}</span>
+    <input class="text" [(ngModel)]="hexColor" (change)="hexToRgb()">
     <div
       class="color-div"
-      [ngStyle]="{'background-color': color || 'white'}"
+      [ngStyle]="{'background-color': colorService.color || 'white'}"
     ></div>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="color" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="colorService.color" cdkFocusInitial>Ok</button>
 </div>

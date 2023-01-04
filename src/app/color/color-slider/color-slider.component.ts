@@ -1,25 +1,37 @@
 // From https://malcoded.com/posts/angular-color-picker/
 
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ColorPickerService } from 'src/app/color-picker.service';
 
 @Component({
   selector: 'app-color-slider',
   templateUrl: './color-slider.component.html',
   styleUrls: ['./color-slider.component.css']
 })
-export class ColorSliderComponent implements AfterViewInit {
+export class ColorSliderComponent implements AfterViewInit, OnInit {
   @ViewChild('sliderCanvas')
   canvas!: ElementRef<HTMLCanvasElement>;
-
-  @Output()
-  color: EventEmitter<string> = new EventEmitter()
 
   private ctx!: CanvasRenderingContext2D;
   private mousedown: boolean = false
   private selectedHeight: number | undefined;
 
+  constructor(private colorService: ColorPickerService) {}
+
+  ngOnInit(): void {
+    this.colorService.hueHexChangedListener().subscribe(() => this.updateSlider());
+  }
+
+  private updateSlider(): void {
+    this.selectedHeight = Math.round(this.colorService.hueHex / 360 * 249);
+    this.draw();
+    this.colorService.hueB = this.getColorAtPosition(5, this.selectedHeight as number);
+  }
+
   ngAfterViewInit() {
-    this.draw()
+    setTimeout(()=>{ // wait a tick in order to get the element of block
+      this.updateSlider();
+    });
   }
 
   draw() {
@@ -80,7 +92,7 @@ export class ColorSliderComponent implements AfterViewInit {
 
   emitColor(x: number, y: number) {
     const rgbaColor = this.getColorAtPosition(x, y)
-    this.color.emit(rgbaColor)
+    this.colorService.hue = rgbaColor;
   }
 
   getColorAtPosition(x: number, y: number) {

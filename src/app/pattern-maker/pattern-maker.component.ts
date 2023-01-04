@@ -103,6 +103,8 @@ export class PatternMakerComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if(!result) return;
+      
       var resultStr: string = result as string;
       var splitStr = resultStr.split(',', 3);
       this.colors[i][0] = splitStr[0].substring(5) as any as number;

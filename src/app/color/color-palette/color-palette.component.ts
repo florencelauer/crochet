@@ -1,36 +1,63 @@
 // From https://malcoded.com/posts/angular-color-picker/
 
 import {
-  AfterViewInit, Component, ElementRef, EventEmitter,
-  HostListener, Input, OnChanges, Output,
-  SimpleChanges, ViewChild
-} from '@angular/core'
+  AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild
+} from '@angular/core';
+import { ColorPickerService } from 'src/app/color-picker.service';
 
 @Component({
   selector: 'app-color-palette',
   templateUrl: './color-palette.component.html',
   styleUrls: ['./color-palette.component.css']
 })
-export class ColorPaletteComponent implements AfterViewInit, OnChanges {
-  @Input()
-  hue!: string
-
-  @Output()
-  color: EventEmitter<string> = new EventEmitter(true)
-
+export class ColorPaletteComponent implements AfterViewInit, OnInit {
   @ViewChild('paletteCanvas')
   canvas!: ElementRef<HTMLCanvasElement>
 
   private ctx!: CanvasRenderingContext2D
 
   private mousedown: boolean = false;
-  private isInit: boolean = false;
 
   public selectedPosition!: { x: number; y: number }
+  
+  constructor(private colorService: ColorPickerService) {}
 
+  ngOnInit(): void {
+    this.colorService.hueChangedListener().subscribe(() => {
+      this.draw(); 
+      this.emitColor(this.selectedPosition.x, this.selectedPosition.y);
+    });
+    this.colorService.hueAndColorChangedListener().subscribe(() => this.changeSelectedPosition());
+  }
+
+  private changeSelectedPosition(): void {
+    const splitColor = this.colorService.color.split(',');
+    const r = splitColor[0].substring(5) as any as number;
+    const g = splitColor[1] as any as number;
+
+    const splitHue = this.colorService.hue.split(',');
+    const hue_r = splitHue[0].substring(5) as any as number;
+    const hue_g = splitHue[1] as any as number;
+    const dx_r = (255 - hue_r);
+    const dx_g = (255 - hue_g);
+
+    var divider = (g * dx_r - r * dx_g);
+    if(divider == 0) var x = 1;
+    else var x = Math.min(1, 255 * (g - r) / (g * dx_r - r * dx_g));
+    
+    if(r > 0) {
+      var y = Math.max(0, 1 - (r / (255 - x * dx_r)));
+    } else var y = 0;
+
+    this.selectedPosition = {x: x * 249, y: y * 249};
+    this.draw();
+    this.emitColor(this.selectedPosition.x, this.selectedPosition.y);
+  }
+  
   ngAfterViewInit() {
-    this.draw()
-    this.isInit = true;
+    setTimeout(()=>{
+      this.changeSelectedPosition();
+    }, 500);
   }
 
   draw() {
@@ -40,7 +67,7 @@ export class ColorPaletteComponent implements AfterViewInit, OnChanges {
     const width = this.canvas.nativeElement.width
     const height = this.canvas.nativeElement.height
 
-    this.ctx.fillStyle = this.hue || 'rgba(255,255,255,1)'
+    this.ctx.fillStyle = this.colorService.hue || 'rgba(255,255,255,1)'
     this.ctx.fillRect(0, 0, width, height)
 
     const whiteGrad = this.ctx.createLinearGradient(0, 0, width, 0)
@@ -73,18 +100,6 @@ export class ColorPaletteComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(!this.isInit) return;
-    
-    if (changes['hue']) {
-      this.draw()
-      const pos = this.selectedPosition
-      if (pos) {
-        this.color.emit(this.getColorAtPosition(pos.x, pos.y))
-      }
-    }
-  }
-
   @HostListener('window:mouseup', ['$event'])
   onMouseUp(evt: MouseEvent) {
     this.mousedown = false
@@ -94,7 +109,7 @@ export class ColorPaletteComponent implements AfterViewInit, OnChanges {
     this.mousedown = true
     this.selectedPosition = { x: evt.offsetX, y: evt.offsetY }
     this.draw()
-    this.color.emit(this.getColorAtPosition(evt.offsetX, evt.offsetY))
+    this.emitColor(evt.offsetX, evt.offsetY)
   }
 
   onMouseMove(evt: MouseEvent) {
@@ -107,7 +122,7 @@ export class ColorPaletteComponent implements AfterViewInit, OnChanges {
 
   emitColor(x: number, y: number) {
     const rgbaColor = this.getColorAtPosition(x, y)
-    this.color.emit(rgbaColor)
+    this.colorService.color = rgbaColor
   }
 
   getColorAtPosition(x: number, y: number) {
