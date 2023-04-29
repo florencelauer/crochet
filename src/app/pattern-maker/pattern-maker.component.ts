@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColorProcessorService } from '../color-processor.service';
-import { ColorPickerComponent } from '../color/color-picker/color-picker.component';
+import { ColorPickerComponent } from 'src/app/color/color-picker/color-picker.component';
+import { ColorProcessorService } from 'src/app/services/color-processor.service';
 
 @Component({
   selector: 'app-pattern-maker',

@@ -1,7 +1,7 @@
 // From https://malcoded.com/posts/angular-color-picker/
 
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { ColorPickerService } from 'src/app/color-picker.service';
+import { ColorPickerService } from 'src/app/services/color-picker.service';
 
 @Component({
   selector: 'app-color-slider',

@@ -3,7 +3,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ColorPickerService } from 'src/app/color-picker.service';
+import { ColorPickerService } from 'src/app/services/color-picker.service';
 
 export interface DialogData {
   color: string;
