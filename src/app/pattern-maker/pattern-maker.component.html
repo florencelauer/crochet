@@ -1,5 +1,6 @@
 <mat-sidenav-container class="pattern-container">
   <mat-sidenav #sidenav mode="side" opened class="sidenav" fixedInViewport="true">
+    <h1>Pattern Maker</h1>
     <mat-form-field class="color-number" >
         <mat-label>Number of Colors</mat-label>
         <input matInput [(ngModel)]="colorNumber" type="number" (change)="pickColors()">
@@ -7,11 +8,11 @@
 
     <div class="dimensions">
       <mat-form-field class="dim-input" >
-        <mat-label>Pattern width</mat-label>
+        <mat-label>Pattern Width</mat-label>
         <input matInput [(ngModel)]="imgWidth" type="number">
       </mat-form-field>
       <mat-form-field class="dim-input">
-        <mat-label>Pattern height</mat-label>
+        <mat-label>Pattern Height</mat-label>
         <input matInput [(ngModel)]="imgHeight" type="number">
       </mat-form-field>
     </div>
@@ -22,9 +23,9 @@
     </mat-radio-group>   
 
     <div [hidden]="!showColorPicker" class="color-selection">
-      <div *ngFor="let color of colors; let i = index; trackBy:trackByFn"> 
-        <div style="width:20px;height:20px;" id="colorSample{{i}}" (click)="openDialog(i)"></div>
-      </div>
+      <svg style="width:30px;height:30px;" *ngFor="let color of colors; let i = index; trackBy:trackByFn"> 
+        <rect style="width:30px;height:30px;stroke:white;stroke-width:4" id="colorSample{{i}}" (click)="openDialog(i)"></rect>
+      </svg>
     </div>
     
     <input type="file" class="file-input"
@@ -42,7 +43,7 @@
     <button mat-fab extended color="primary" class="execute-btn"
       [disabled]="!image"
       (click)="execute()">
-      Exexute
+      Execute
     </button>
   </mat-sidenav>
 

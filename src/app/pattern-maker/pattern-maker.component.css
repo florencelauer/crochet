@@ -1,6 +1,7 @@
 
 .sidenav {
     width: 320px;
+    text-align: center;
 }
 
 .color-number {
@@ -57,6 +58,7 @@
 .file-upload {
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .execute-btn {

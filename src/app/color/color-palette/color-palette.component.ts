@@ -34,24 +34,39 @@ export class ColorPaletteComponent implements AfterViewInit, OnInit {
     const splitColor = this.colorService.color.split(',');
     const r = splitColor[0].substring(5) as any as number;
     const g = splitColor[1] as any as number;
+    const b = splitColor[2] as any as number;
 
-    const splitHue = this.colorService.hue.split(',');
-    const hue_r = splitHue[0].substring(5) as any as number;
-    const hue_g = splitHue[1] as any as number;
-    const dx_r = (255 - hue_r);
-    const dx_g = (255 - hue_g);
+    var hsv = this.rgbToHsv(r, g, b);
 
-    var divider = (g * dx_r - r * dx_g);
-    if(divider == 0) var x = 1;
-    else var x = Math.min(1, 255 * (g - r) / (g * dx_r - r * dx_g));
-    
-    if(r > 0) {
-      var y = Math.max(0, 1 - (r / (255 - x * dx_r)));
-    } else var y = 0;
+    var x = hsv[1];
+    var y = 1 - hsv[2];
 
-    this.selectedPosition = {x: x * 249, y: y * 249};
+    this.selectedPosition = {x: x * 250, y: y * 250};
     this.draw();
     this.emitColor(this.selectedPosition.x, this.selectedPosition.y);
+  }
+
+  rgbToHsv(r: number, g: number, b: number) {
+    r /= 255, g /= 255, b /= 255;
+  
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var d = max - min;
+    var h = 0;
+
+    if (max != min) {
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+  
+      h /= 6;
+    }
+  
+    var s = max == 0 ? 0 : d / max;
+    var v = max;
+
+    return [ h, s, v ];
   }
   
   ngAfterViewInit() {

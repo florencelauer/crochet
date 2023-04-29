@@ -93,7 +93,7 @@ export class PatternMakerComponent {
   setColor(i: number) {
     var colorSampleDiv = document.getElementById('colorSample' + i);
     if(colorSampleDiv) {
-      colorSampleDiv.style.backgroundColor = "rgba(" + this.colors[i][0] + "," + this.colors[i][1] + "," + this.colors[i][2] + ", 1)";
+      colorSampleDiv.style.fill = "rgba(" + this.colors[i][0] + "," + this.colors[i][1] + "," + this.colors[i][2] + ", 1)";
     }
   }
 
