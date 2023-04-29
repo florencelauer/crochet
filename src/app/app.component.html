@@ -1,1 +1,20 @@
-<app-pattern-maker></app-pattern-maker>
+
+
+<mat-sidenav-container class="pattern-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav" fixedInViewport="true">
+        <div>
+            <button mat-button color="accent" aria-label="Home" [routerLink]="'/'">
+                <mat-icon>home</mat-icon>
+            </button>
+        </div>
+        <div>
+            <button mat-button color="accent" aria-label="Pattern Maker" [routerLink]="'/pattern-maker'">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>  

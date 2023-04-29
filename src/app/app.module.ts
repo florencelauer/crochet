@@ -16,6 +16,7 @@ import { ColorPaletteComponent } from './color/color-palette/color-palette.compo
 import { ColorPickerComponent } from './color/color-picker/color-picker.component';
 import { ColorSliderComponent } from './color/color-slider/color-slider.component';
 import { PatternMakerComponent } from './pattern-maker/pattern-maker.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PatternMakerComponent } from './pattern-maker/pattern-maker.component';
     MatSelectModule,
     MatSidenavModule,
     MatSliderModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
