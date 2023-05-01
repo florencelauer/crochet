@@ -4,6 +4,7 @@ import {
   AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild
 } from '@angular/core';
 import { ColorPickerService } from 'src/app/services/color-picker.service';
+import { ColorProcessorService } from "src/app/services/color-processor.service";
 
 @Component({
   selector: 'app-color-palette',
@@ -20,7 +21,7 @@ export class ColorPaletteComponent implements AfterViewInit, OnInit {
 
   public selectedPosition!: { x: number; y: number }
   
-  constructor(private colorService: ColorPickerService) {}
+  constructor(private colorService: ColorPickerService, private colorProcessor: ColorProcessorService) {}
 
   ngOnInit(): void {
     this.colorService.hueChangedListener().subscribe(() => {
@@ -36,7 +37,7 @@ export class ColorPaletteComponent implements AfterViewInit, OnInit {
     const g = splitColor[1] as any as number;
     const b = splitColor[2] as any as number;
 
-    var hsv = this.rgbToHsv(r, g, b);
+    var hsv = this.colorProcessor.rgbToHsv(r, g, b);
 
     var x = hsv[1];
     var y = 1 - hsv[2];
@@ -46,29 +47,6 @@ export class ColorPaletteComponent implements AfterViewInit, OnInit {
     this.emitColor(this.selectedPosition.x, this.selectedPosition.y);
   }
 
-  rgbToHsv(r: number, g: number, b: number) {
-    r /= 255, g /= 255, b /= 255;
-  
-    var max = Math.max(r, g, b), min = Math.min(r, g, b);
-    var d = max - min;
-    var h = 0;
-
-    if (max != min) {
-      switch (max) {
-        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-        case g: h = (b - r) / d + 2; break;
-        case b: h = (r - g) / d + 4; break;
-      }
-  
-      h /= 6;
-    }
-  
-    var s = max == 0 ? 0 : d / max;
-    var v = max;
-
-    return [ h, s, v ];
-  }
-  
   ngAfterViewInit() {
     setTimeout(()=>{
       this.changeSelectedPosition();

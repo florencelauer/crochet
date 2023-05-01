@@ -19,6 +19,7 @@ export class PatternMakerComponent {
   @Input() colors: Array<Array<number>> = new Array<Array<number>> ();
   
   fileName: string = "";
+  originalImage!: ImageBitmap;
   image: any;
   
   colorProcessor: ColorProcessorService = new ColorProcessorService();
@@ -38,14 +39,16 @@ export class PatternMakerComponent {
 
       var canvas: any = document.getElementById('invisible-canvas');
       var context: CanvasRenderingContext2D = canvas.getContext('2d');
-      const image: ImageBitmap = await createImageBitmap(file)
+      context.imageSmoothingEnabled = false
+      this.originalImage = await createImageBitmap(file)
 
-      context.drawImage(image, 0, 0, this.imgWidth, this.imgHeight);
+      context.drawImage(this.originalImage, 0, 0, this.imgWidth, this.imgHeight);
       this.image = context.getImageData(0, 0, this.imgWidth, this.imgHeight);
 
       var canvas: any = document.getElementById('canvas');
       var context: CanvasRenderingContext2D = canvas.getContext('2d');
-      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      context.imageSmoothingEnabled = false
+      context.drawImage(this.originalImage, 0, 0, canvas.width, canvas.height);
 
       this.gridSize = canvas.width/this.imgWidth;
 
@@ -53,10 +56,16 @@ export class PatternMakerComponent {
     }
   }
 
+  getImageData() {
+    var canvas: any = document.getElementById('invisible-canvas');
+    var context: CanvasRenderingContext2D = canvas.getContext('2d');
+
+    context.drawImage(this.originalImage, 0, 0, this.imgWidth, this.imgHeight);
+    this.image = context.getImageData(0, 0, this.imgWidth, this.imgHeight);
+  }
+
   async execute() { 
-    var newImageArray: Uint8ClampedArray; 
-    if(this.autoColors == 0) newImageArray = this.colorProcessor.processImage(this.image, this.colorNumber);
-    else newImageArray = this.colorProcessor.processImage(this.image, this.colorNumber, this.colors);
+    var newImageArray: Uint8ClampedArray = this.colorProcessor.processImage(this.image, this.colorNumber, this.colors);
     
     var newImageData: ImageData = new ImageData(newImageArray, this.image.width, this.image.height);
     var newImageBitmap: ImageBitmap = await createImageBitmap(newImageData);
@@ -69,15 +78,37 @@ export class PatternMakerComponent {
     this.drawGrid();
   }
 
-  pickColors() {
-    if(this.autoColors == 0 || !this.image) {
-      this.showColorPicker = false;
-      return;
-    }
-    
+  sortByHue(a: number[], b: number[]) {
+    let rgbA = this.colorProcessor.rgbToHsv(a[0], a[1], a[2]);
+    let rgbB = this.colorProcessor.rgbToHsv(b[0], b[1], b[2]);
+    return rgbA[0] >= rgbB[0] ? 1 : 0;
+  }
+
+  pickColors() {    
     var uniqueColors = this.colorProcessor.getUniqueColors(this.image);
-    this.colors = this.colorProcessor.getImageColors(uniqueColors, this.colorNumber);
+    var colors = this.colorProcessor.getImageColors(uniqueColors, this.colorNumber);
+    this.colors = colors.sort((a, b) => this.sortByHue(a, b))
+    
     this.showColorPicker = true;
+
+    setTimeout(()=>{ // wait a tick in order to get the element of block
+      for(var i = 0; i < this.colorNumber; i++) {
+        this.setColor(i);
+      }
+    });
+  }
+
+  addColor() {
+    if(!this.image) return;
+
+    if(this.colorNumber <= this.colors.length) {
+      this.colors = this.colors.slice(0, this.colorNumber);
+
+    } else {
+      var uniqueColors = this.colorProcessor.getUniqueColors(this.image);
+      var colors = this.colorProcessor.getImageColors(uniqueColors, this.colorNumber);  
+      this.colors = this.colors.concat(colors.slice(0, this.colorNumber - this.colors.length));
+    }
 
     setTimeout(()=>{ // wait a tick in order to get the element of block
       for(var i = 0; i < this.colorNumber; i++) {
@@ -125,13 +156,13 @@ export class PatternMakerComponent {
     context.beginPath();
 
     // draw row
-    for (let i = 0; i < canvas.height; i += this.gridSize) {
+    for (let i = 0; i < canvas.height; i += canvas.height / this.imgHeight) {
         context.moveTo(0, i);
         context.lineTo(canvas.width, i);
     }
 
     // draw col
-    for (let j = 0; j < canvas.width; j += this.gridSize) {
+    for (let j = 0; j < canvas.width; j += canvas.width / this.imgWidth) {
         context.moveTo(j, 0);
         context.lineTo(j, canvas.height);
     }

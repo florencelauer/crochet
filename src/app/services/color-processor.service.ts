@@ -7,6 +7,29 @@ import kmeans, { Centroids, KMeans } from 'kmeans-ts';
 export class ColorProcessorService {
   constructor() {}
 
+  rgbToHsv(r: number, g: number, b: number) {
+    r /= 255, g /= 255, b /= 255;
+  
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var d = max - min;
+    var h = 0;
+
+    if (max != min) {
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+  
+      h /= 6;
+    }
+  
+    var s = max == 0 ? 0 : d / max;
+    var v = max;
+
+    return [ h, s, v ];
+  }
+
   getUniqueColors(image: ImageData): Array<Array<number>> {
     var uniqueColors: Map<number, number[]> = new Map<number, number[]>();
     for(var height = 0; height < image.height; height++) {
@@ -37,24 +60,24 @@ export class ColorProcessorService {
 
   getClosestColor(image: ImageData, colorNumber: number, centroids: Centroids) : Uint8ClampedArray {
     var newImage : Uint8ClampedArray = new Uint8ClampedArray(image.data);
-    for(var height = 0; height < image.height; height++) {
-      for(var width = 0; width < image.width; width++) {
-        if(!newImage[image.height*height*4 + width*4+3]) {
+    for(var width = 0; width < image.width; width++) {
+      for(var height = 0; height < image.height; height++) {
+        if(!newImage[image.height*width*4 + height*4+3]) {
           continue;
         }
         
-        const r = newImage[image.height*height*4 + width*4];
-        const g = newImage[image.height*height*4 + width*4 + 1];
-        const b = newImage[image.height*height*4 + width*4 + 2];
+        const r = newImage[image.height*width*4 + height*4];
+        const g = newImage[image.height*width*4 + height*4 + 1];
+        const b = newImage[image.height*width*4 + height*4 + 2];
 
         var min = 255*3;
         for(var i = 0; i < colorNumber; i++) {
           const dist = Math.sqrt((r - centroids[i][0])**2 + (g - centroids[i][1])**2 + (b - centroids[i][2])**2);
           if(dist < min) {
             min = dist;
-            newImage[image.height*height*4 + width*4] = centroids[i][0];
-            newImage[image.height*height*4 + width*4 + 1] = centroids[i][1];
-            newImage[image.height*height*4 + width*4 + 2] = centroids[i][2];
+            newImage[image.height*width*4 + height*4] = centroids[i][0];
+            newImage[image.height*width*4 + height*4 + 1] = centroids[i][1];
+            newImage[image.height*width*4 + height*4 + 2] = centroids[i][2];
           }
         }
       }

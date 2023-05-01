@@ -3,24 +3,19 @@
     <h1>Pattern Maker</h1>
     <mat-form-field class="color-number" >
         <mat-label>Number of Colors</mat-label>
-        <input matInput [(ngModel)]="colorNumber" type="number" (change)="pickColors()">
+        <input matInput [(ngModel)]="colorNumber" type="number" (change)="addColor()">
     </mat-form-field>
 
     <div class="dimensions">
       <mat-form-field class="dim-input" >
         <mat-label>Pattern Width</mat-label>
-        <input matInput [(ngModel)]="imgWidth" type="number">
+        <input matInput [(ngModel)]="imgWidth" type="number" (change)="getImageData()">
       </mat-form-field>
       <mat-form-field class="dim-input">
         <mat-label>Pattern Height</mat-label>
-        <input matInput [(ngModel)]="imgHeight" type="number">
+        <input matInput [(ngModel)]="imgHeight" type="number" (change)="getImageData()">
       </mat-form-field>
     </div>
-
-    <mat-radio-group color="accent" class="color-radio" [(ngModel)]="autoColors" (change)="pickColors()">
-      <mat-radio-button value=0 checked>Pick the colors for me!</mat-radio-button>
-      <mat-radio-button value=1>I will choose my colors.</mat-radio-button>
-    </mat-radio-group>   
 
     <div [hidden]="!showColorPicker" class="color-selection">
       <svg style="width:30px;height:30px;" *ngFor="let color of colors; let i = index; trackBy:trackByFn"> 
