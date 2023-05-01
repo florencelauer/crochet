@@ -40,6 +40,13 @@
       (click)="execute()">
       Execute
     </button>
+
+    <button mat-fab extended color="primary" class="execute-btn"
+      [disabled]="!image"
+      (click)="download()">
+      Download
+    </button>
+    <a id="download"></a>
   </mat-sidenav>
 
   <mat-sidenav-content>
@@ -47,6 +54,7 @@
       <canvas id="canvas" #baseCanvas [attr.width]="768" [attr.height]="768"></canvas>
       <canvas id="invisible-canvas" #invCanvas class="invisible-canvas" [attr.width]="768" [attr.height]="768"></canvas>
       <canvas id="grid-canvas" #gridCanvas [attr.width]="768" [attr.height]="768"></canvas>
+      <canvas id="download-canvas" #downloadCanvas class="download-canvas" [attr.width]="768" [attr.height]="768"></canvas>
     </div>
     
   </mat-sidenav-content>

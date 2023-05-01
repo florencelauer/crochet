@@ -53,6 +53,8 @@ export class PatternMakerComponent {
       context.imageSmoothingEnabled = false
       context.drawImage(this.originalImage, 0, 0, canvas.width, canvas.height);
 
+      (document.getElementById('download-canvas') as any).width = canvas.width;
+
       this.pickColors();
     }
   }
@@ -77,6 +79,22 @@ export class PatternMakerComponent {
     context.drawImage(newImageBitmap, 0, 0, canvas.width, canvas.height);
     
     this.drawGrid();
+  }
+
+  download() {
+    var canvas: any = document.getElementById('canvas');
+    var gridCanvas: any = document.getElementById('grid-canvas');
+    var downloadCanvas: any = document.getElementById('download-canvas');
+    var context: CanvasRenderingContext2D = downloadCanvas.getContext('2d');
+
+    context.clearRect(0, 0, downloadCanvas.width, downloadCanvas.height);
+    context.drawImage(canvas, 0, 0, canvas.width, canvas.height);
+    context.drawImage(gridCanvas, 0, 0, canvas.width, canvas.height);
+
+    var link: any = document.getElementById('download');
+    link.setAttribute('download', `${this.fileName.split('.')[0]}-pattern.png`);
+    link.setAttribute('href', downloadCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+    link.click();
   }
 
   sortByHue(a: number[], b: number[]) {
