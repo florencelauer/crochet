@@ -24,8 +24,6 @@ export class PatternMakerComponent {
   
   colorProcessor: ColorProcessorService = new ColorProcessorService();
   
-  gridSize:number = 0;
-
   constructor(public dialog: MatDialog) { }
 
   async onFileSelected(event: any) {
@@ -33,24 +31,27 @@ export class PatternMakerComponent {
     this.fileName = file.name;
 
     if(file) { 
+      this.originalImage = await createImageBitmap(file)
+      
+      // canvas showing the grid
       var gridCanvas: any = document.getElementById('grid-canvas');
+      gridCanvas.width = this.originalImage.width * gridCanvas.height / this.originalImage.height;
       var gridContext: CanvasRenderingContext2D = gridCanvas.getContext('2d');
       gridContext.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
 
+      // invisible canvas containing image to process at the right proportions
       var canvas: any = document.getElementById('invisible-canvas');
       var context: CanvasRenderingContext2D = canvas.getContext('2d');
       context.imageSmoothingEnabled = false
-      this.originalImage = await createImageBitmap(file)
-
       context.drawImage(this.originalImage, 0, 0, this.imgWidth, this.imgHeight);
       this.image = context.getImageData(0, 0, this.imgWidth, this.imgHeight);
 
+      // canvas showing the result
       var canvas: any = document.getElementById('canvas');
+      canvas.width = this.originalImage.width * canvas.height / this.originalImage.height;
       var context: CanvasRenderingContext2D = canvas.getContext('2d');
       context.imageSmoothingEnabled = false
       context.drawImage(this.originalImage, 0, 0, canvas.width, canvas.height);
-
-      this.gridSize = canvas.width/this.imgWidth;
 
       this.pickColors();
     }
@@ -117,7 +118,7 @@ export class PatternMakerComponent {
     });
   }
 
-  trackByFn(index: any, item: any) {
+  trackByFn(index: any) {
     return index;
   }
 
