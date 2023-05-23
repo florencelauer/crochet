@@ -1,18 +1,18 @@
 <mat-sidenav-container class="pattern-container">
   <mat-sidenav #sidenav mode="side" opened class="sidenav" fixedInViewport="true">
-    <h1>Pattern Maker</h1>
+    <h1>Créateur de patrons</h1>
     <mat-form-field class="color-number" >
-        <mat-label>Number of Colors</mat-label>
+        <mat-label>Couleurs</mat-label>
         <input matInput [(ngModel)]="colorNumber" type="number" (change)="addColor()">
     </mat-form-field>
 
     <div class="dimensions">
       <mat-form-field class="dim-input" >
-        <mat-label>Pattern Width</mat-label>
+        <mat-label>Largeur</mat-label>
         <input matInput [(ngModel)]="imgWidth" type="number" (change)="getImageData()">
       </mat-form-field>
       <mat-form-field class="dim-input">
-        <mat-label>Pattern Height</mat-label>
+        <mat-label>Hauteur</mat-label>
         <input matInput [(ngModel)]="imgHeight" type="number" (change)="getImageData()">
       </mat-form-field>
     </div>
@@ -31,20 +31,20 @@
       <button mat-fab extended color="primary" class="upload-btn"
       (click)="fileUpload.click()">
         <mat-icon>attach_file</mat-icon>
-        {{fileName || "No file uploaded yet."}}
+        {{fileName || "Aucun fichier téléversé."}}
       </button>
     </div>
 
     <button mat-fab extended color="primary" class="execute-btn"
       [disabled]="!image"
       (click)="execute()">
-      Execute
+      Exécuter
     </button>
 
     <button mat-fab extended color="primary" class="execute-btn"
       [disabled]="!image"
       (click)="download()">
-      Download
+      Télécharger
     </button>
     <a id="download"></a>
   </mat-sidenav>
