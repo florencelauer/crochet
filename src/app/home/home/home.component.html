@@ -1,0 +1,21 @@
+<div class="container">
+    <h1>Mon crochet</h1>
+    
+    <gallery
+        [flexBorderSize]="3"
+        [flexImageSize]="7"
+        [maxRowsPerPage]="100"
+        [includeViewer]="true"
+        [lazyLoadGalleryImages]="true"
+    ></gallery>
+
+    <mat-grid-list cols="4" rowHeight="10px">
+        <mat-grid-tile
+            *ngFor="let picture of pictures"
+            [colspan]="1"
+            [rowspan]="picture.files.length * 30 + 12">
+          <app-picture-card [picture]="picture"></app-picture-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+      
+</div>
