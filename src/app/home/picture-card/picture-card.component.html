@@ -4,7 +4,7 @@
       <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
     <span *ngFor="let file of picture.files" class="picture-div">
-      <img 
+      <img mat-card-image 
       src="assets/images/{{file}}" alt="Photo of {{picture.title}}">
     </span>
     <mat-card-content class="content">

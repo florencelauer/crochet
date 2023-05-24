@@ -5,7 +5,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Les amis fabriqués au cours des dernières années sont rassemblés pour une photo de famille.",
     "files": ["toutou/all.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"abeille",
@@ -13,7 +13,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Une abeille simple et joyeuse.",
     "files": ["toutou/abeille.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"ammy",
@@ -21,7 +21,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Personnage principal du jeu Okami et un des premiers toutous réalisé. M'a permis d'expérimenter avec les changements de couleurs.",
     "files": ["toutou/ammy-f.JPG", "toutou/ammy-s.JPG"],
     "colspan": 1,
-    "rowspan": 71
+    "rowspan": 74
 },
 {
     "name":"baleinefunky",
@@ -29,7 +29,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Ce grand toutou doux et moelleux est parfait pour les petits calins.",
     "files": ["toutou/baleinefunky.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"baleinejaune",
@@ -37,7 +37,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Partez en aventure avec cette baleine mystérieuse.",
     "files": ["toutou/baleinejaune-fr.JPG", "toutou/baleinejaune-s.JPG"],
     "colspan": 1,
-    "rowspan": 71
+    "rowspan": 73
 },
 {
     "name":"chat",
@@ -45,7 +45,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Ce patron est le premier que j'ai crocheté. Rapide à produire et sans couture, il est parfait pour les débutants et donne un résultat tout mignon.",
     "files": ["toutou/chat-h.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"chatorange",
@@ -53,7 +53,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Ce chat muni d'un chandail blanc faute d'un manque de laine est parfait pour être déposé dans un endroit plat et donner vie à une pièce.",
     "files": ["toutou/chatorange.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"girafe",
@@ -61,7 +61,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Une girafe à qui la vie a semblé dure. Expérimentation à appliquer des tâches après, ce qui donne une texture 3d intéressante.",
     "files": ["toutou/girafe-h.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"mouton",
@@ -69,7 +69,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Un toutou digne de son nom. Parfait pour dormir et être un compagnon d'enfance à travers le temps.",
     "files": ["toutou/mouton-blanc-2.JPG"],
     "colspan": 1,
-    "rowspan": 34
+    "rowspan": 36
 },
 {
     "name":"chevre",
@@ -77,7 +77,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Quoi de mieux comme cadeau pour partir une guerre de jalousie, la petite chèvre peut se tenir debout et est très jolie.",
     "files": ["toutou/chevre-f.JPG", "toutou/chevre-s-3.JPG"],
     "colspan": 1,
-    "rowspan": 71
+    "rowspan": 74
 },
 {
     "name":"meduse",
@@ -85,7 +85,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Joli patron qui est un favori à plusieurs, permettant l'ajout de plusieurs couleurs disparates. Parfait pour terminer des balles de laine.",
     "files": ["toutou/meduse-h.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"moutons",
@@ -93,7 +93,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Un petit troupeau en cours de production.",
     "files": ["toutou/moutons-sbs-2.JPG", "toutou/moutons-tb.JPG"],
     "colspan": 2,
-    "rowspan": 34
+    "rowspan": 35
 },
 {
     "name":"poisson",
@@ -101,7 +101,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Un poisson multicolore permettant d'expérimenter avec l'agencement de couleur. Le parfait compagnon à la méduse.",
     "files": ["toutou/poisson.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 
 
@@ -113,7 +113,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Il ne manque qu'un bas pour aller avec le tout!",
     "files": ["vetement/combinaison-f-3.JPG", "vetement/combinaison-f-2.JPG", "vetement/combinaison-f.JPG"],
     "colspan": 2,
-    "rowspan": 34
+    "rowspan": 35
 },
 {
     "name":"chandailbrun",
@@ -121,7 +121,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Une première avec des motifs au tricot. Très long à réaliser mais très réconfortant par son grand poids.",
     "files": ["vetement/chandailbrun-f.JPG", "vetement/chandailbrun-b.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"chandailjaune",
@@ -129,7 +129,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Un chandail simple mais apportant un rayon de soleil par des journées froides.",
     "files": ["vetement/chandailjaune.JPG", "vetement/chandailjaune-chaise.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"vestelaide",
@@ -137,7 +137,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Mon premier vêtement réalisé et que j'aime beaucoup. Les proportions ne sont pas parfaites. Veste unique que je porte régulièrement.",
     "files": ["vetement/vestelaide-f.JPG", "vetement/vestelaide-s.JPG", "vetement/vestelaide-b.JPG"],
     "colspan": 1,
-    "rowspan": 63
+    "rowspan": 65
 },
 {
     "name":"couvertureboule",
@@ -145,7 +145,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Couverture au crochet d'un dessin que j'ai conçu moi-même. Visitez la page de conception de patron de mon site pour faire le vôtre!",
     "files": ["vetement/couvertureboule.jpg", "vetement/couvertureboule-cozy-3.JPG"],
     "colspan": 2,
-    "rowspan": 34
+    "rowspan": 35
 },
 {
     "name":"croptop",
@@ -153,7 +153,7 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Crop top ligné devant car j'ai manqué de laine grise. J'ai expérimenté en mettant les épaules rouges et le col bleu mais le résultat a été satisfaisant.",
     "files": ["vetement/croptop-f.JPG", "vetement/croptop-b.jpg"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 },
 {
     "name":"vesterouge",
@@ -161,6 +161,6 @@ export const PICTURE_DESCRIPTIONS: Object[] =
     "description":"Un patron que j'aimais beaucoup et que je voulais faire depuis longtemps. Premiers changements de couleur intenses au tricot.",
     "files": ["vetement/vesterouge-f.JPG", "vetement/vesterouge-b.JPG"],
     "colspan": 1,
-    "rowspan": 42
+    "rowspan": 44
 }
 ]
