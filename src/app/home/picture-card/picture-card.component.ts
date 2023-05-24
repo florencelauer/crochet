@@ -7,5 +7,5 @@ import { Picture } from 'src/app/class/picture';
   styleUrls: ['./picture-card.component.css']
 })
 export class PictureCardComponent {
-  @Input() picture: Picture = {title: "", description: "", files: [], dimensions: []};
+  @Input() picture: Picture = {title: "", description: "", files: [], colspan: 0, rowspan: 0};
 }

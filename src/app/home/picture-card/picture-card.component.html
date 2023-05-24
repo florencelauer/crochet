@@ -3,12 +3,11 @@
       <mat-card-title class="title">{{picture.title}}</mat-card-title>
       <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
-    <div *ngFor="let file of picture.files" class="picture-div">
+    <span *ngFor="let file of picture.files" class="picture-div">
       <img 
-      width="1000px"
-      src="assets/images/toutou/{{file}}" alt="Photo of {{picture.title}}">
-    </div>
-    <mat-card-content>
+      src="assets/images/{{file}}" alt="Photo of {{picture.title}}">
+    </span>
+    <mat-card-content class="content">
       <p class="description">
         {{picture.description}}
       </p>
